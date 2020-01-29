@@ -1309,7 +1309,7 @@ class TinyGLTF {
   ///
   bool WriteGltfSceneToFile(Model *model, const std::string &filename,
                             bool embedImages, bool embedBuffers,
-                            bool prettyPrint, bool writeBinary);
+                            bool prettyPrint, bool writeBinary, bool serializeImages);
 
   ///
   /// Set callback to use for loading image data
@@ -7271,7 +7271,8 @@ bool TinyGLTF::WriteGltfSceneToFile(Model *model, const std::string &filename,
                                     bool embedImages = false,
                                     bool embedBuffers = false,
                                     bool prettyPrint = true,
-                                    bool writeBinary = false) {
+                                    bool writeBinary = false,
+									bool serializeImages = true) {
   JsonDocument output;
   std::string defaultBinFilename = GetBaseFilename(filename);
   std::string defaultBinFileExt = ".bin";
@@ -7334,9 +7335,12 @@ bool TinyGLTF::WriteGltfSceneToFile(Model *model, const std::string &filename,
     for (unsigned int i = 0; i < model->images.size(); ++i) {
       json image;
 
-      UpdateImageObject(model->images[i], baseDir, int(i), embedImages,
-                        &this->WriteImageData, this->write_image_user_data_);
-      SerializeGltfImage(model->images[i], image);
+	  if (serializeImages)
+	  {
+		  UpdateImageObject(model->images[i], baseDir, int(i), embedImages,
+			  &this->WriteImageData, this->write_image_user_data_);
+	  }
+	  SerializeGltfImage(model->images[i], image);
       JsonPushBack(images, std::move(image));
     }
     JsonAddMember(output, "images", std::move(images));

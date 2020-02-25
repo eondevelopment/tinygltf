@@ -34,8 +34,11 @@ If you are looking for old, C++03 version, please use `devel-picojson` branch.
 * Moderate parsing time and memory consumption.
 * glTF specification v2.0.0
   * [x] ASCII glTF
+    * [x] Load
+    * [x] Save
   * [x] Binary glTF(GLB)
-  * [x] PBR material description
+    * [x] Load
+    * [x] Save(.bin embedded .glb)
 * Buffers
   * [x] Parse BASE64 encoded embedded buffer data(DataURI).
   * [x] Load `.bin` file.
@@ -55,6 +58,7 @@ If you are looking for old, C++03 version, please use `devel-picojson` branch.
   * [x] Image save
 * Extensions
   * [x] Draco mesh decoding
+  * [ ] Draco mesh encoding
 
 ## Note on extension property
 
@@ -160,14 +164,17 @@ if (!ret) {
 
 
 ### Saving gltTF 2.0 model
-* [ ] Buffers.
+
+* Buffers.
   * [x] To file
   * [x] Embedded
   * [ ] Draco compressed?
 * [x] Images
   * [x] To file
   * [x] Embedded
-* [ ] Binary(.glb)
+* Binary(.glb)
+  * [x] .bin embedded single .glb
+  * [ ] External .bin
 
 ## Running tests.
 
@@ -201,3 +208,4 @@ $ ./tester_noexcept
 * stb_image : Public domain.
 * catch : Copyright (c) 2012 Two Blue Cubes Ltd. All rights reserved. Distributed under the Boost Software License, Version 1.0.
 * RapidJSON : Copyright (C) 2015 THL A29 Limited, a Tencent company, and Milo Yip. All rights reserved. http://rapidjson.org/
+* dlib(uridecode, uriencode) : Copyright (C) 2003  Davis E. King Boost Software License 1.0. http://dlib.net/dlib/server/server_http.cpp.html
